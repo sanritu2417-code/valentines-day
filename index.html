@@ -27,8 +27,42 @@
 /* Countdown */
 .countdown { display: flex; gap: 20px; margin-top: 20px; font-size: 1.3rem; }
 .box { background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 15px; }
+  
+/* Final cinematic photo */
+.photo-wrap { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+.final-photo {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: blur(6px) brightness(0.8);
+  animation: slowZoom 18s ease-in-out forwards, unblur 3s ease forwards;
+}
+@keyframes unblur {
+  to { filter: blur(0px) brightness(0.95); }
+}
+}
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+.photo-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.25);
+}
+.photo-text {
+  color: #fff; font-size: 1.6rem; line-height: 1.6;
+  text-align: center; max-width: 80%;
+  opacity: 0; animation: fadeIn 3s ease forwards; animation-delay: 2s;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+.photo-name {
 
-  </style>
+position:absolute; bottom:30px;right:30px; font-size:.9rem;opacity:.7; } .pass{ margin-top:20px; display:inline-block; padding:8px 16px; border-radius:20px; background:rgba(255,255,255,0.15); backdrop-filter:blur(6px); font-size:.95rem; opacity:0; animation:fade 3s ease forwards; animation-delay:4s; }
+
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}} .popup{ position:fixed;inset:0; background:rgba(0,0,0,.6); display:flex;align-items:center;justify-content:center; z-index:999;animation:fade .4s ease forwards; } .popup-box{ background:#fff;color:#333; padding:30px 25px;border-radius:20px; max-width:300px;text-align:center; animation:pop .4s ease forwards; } .popup-box h3{margin-bottom:10px;color:#ff4f81} .popup-box button{ margin-top:15px;padding:8px 18px; border:none;border-radius:20px; background:#ff4f81;color:#fff;cursor:pointer; }
+
+</style>
 </head>
 <body>  <!-- Background Music -->  <audio id="bgm" preload="auto">
     <source src="Mia%20%26%20Sebastians%20Theme.mp3" type="audio/mpeg">
@@ -149,9 +183,25 @@
     noBtn.style.left = Math.random() * 70 + '%';
     noBtn.style.top = Math.random() * 70 + '%';
   }
-</script>  <!-- Final Photo Screen -->  <section id="photo">
-    <h2>A Little Memory 🤍</h2>
-    <img src="IMG-20251227-WA0012.jpg" alt="Us" style="max-width:280px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.25);margin-top:20px;">
-    <p style="margin-top:20px;">Just one picture. One feeling. Enough.</p>
+function redeemPass(){
+  const p=document.createElement('div');
+  p.className='popup';
+  p.innerHTML=`<div class="popup-box"><h3>Redeemed 😌</h3><p>This pass can be used anytime,<br>anywhere — no expiry 💞</p><button onclick="this.closest('.popup').remove()">Okay</button></div>`;
+  document.body.appendChild(p);
+}
+
+</script>  <!-- Final Photo Screen -->  <section id="photo" style="padding:0;">
+    <div class="photo-wrap">
+      <img src="IMG-20251227-WA0012.jpg" alt="Us" class="final-photo">
+      <div class="photo-overlay">
+    <div>
+      <p class="photo-text">Some moments don’t need words.<br>They just need us.</p>
+      <div class="photo-name">— Vishnupriya</div>
+      <div class="pass" onclick="redeemPass()">🎟 Unlimited Hug & Kiss Pass</div>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
   </section></body>
 </html>
