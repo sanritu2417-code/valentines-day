@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Vishnupriya ❤️</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{background:linear-gradient(135deg,#ff758c,#ff7eb3);color:#fff;overflow-x:hidden}
+
+/* sections */
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px;
+  opacity:0;
+  transform:translateY(30px);
+  transition:all 1s ease;
+}
+section.active{opacity:1;transform:translateY(0)}
+
+h1{font-size:3rem;margin-bottom:20px}
+h2{font-size:2.2rem;margin-bottom:15px}
+p{font-size:1.2rem;max-width:750px;line-height:1.7}
+
+.btn{
+  margin-top:25px;
+  padding:12px 28px;
+  background:#fff;
+  color:#ff4f81;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  transition:.3s
+}
+.btn:hover{transform:scale(1.05)}
+
+.heart{font-size:4rem;animation:pulse 1.5s infinite}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.2)}
+  100%{transform:scale(1)}
+}
+
+/* floating dots */
+.float{
+  position:fixed;
+  bottom:-20px;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,.6);
+  animation:floatUp linear infinite
+}
+@keyframes floatUp{
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+/* music */
+.music-btn{
+  position:fixed;
+  top:20px;right:20px;
+  width:50px;height:50px;
+  border-radius:50%;
+  border:none;
+  background:rgba(255,255,255,.8);
+  color:#ff4f81;
+  cursor:pointer;
+  z-index:10
+}
+
+/* final photo */
+.photo-wrap{position:relative;width:100%;height:100vh;overflow:hidden}
+.final-photo{
+  width:100%;height:100%;
+  object-fit:cover;
+  filter:blur(6px) brightness(.8);
+  animation:zoom 18s ease forwards,unblur 3s ease forwards
+}
+@keyframes zoom{to{transform:scale(1.08)}}
+@keyframes unblur{to{filter:blur(0) brightness(.95)}}
+
+.photo-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.25)
+}
+.photo-text{
+  font-size:1.6rem;
+  opacity:0;
+  animation:fade 3s ease forwards;
+  animation-delay:2s
+}
+@keyframes fade{to{opacity:1}}
+
+.photo-name{
+  position:absolute;
+  bottom:30px;right:30px;
+  font-size:.9rem;opacity:.7
+}
+
+/* hug pass */
+.pass{
+  margin-top:20px;
+  display:inline-block;
+  padding:8px 16px;
+  border-radius:20px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(6px);
+  font-size:.95rem;
+  opacity:0;
+  animation:fade 3s ease forwards;
+  animation-delay:4s;
+  cursor:pointer
+}
+
+/* popup */
+.popup{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  display:flex;align-items:center;justify-content:center;
+  z-index:999
+}
+.popup-box{
+  background:#fff;color:#333;
+  padding:30px 25px;
+  border-radius:20px;
+  max-width:300px;
+  text-align:center
+}
+.popup-box h3{color:#ff4f81;margin-bottom:10px}
+.popup-box button{
+  margin-top:15px;
+  padding:8px 18px;
+  border:none;border-radius:20px;
+  background:#ff4f81;color:#fff;
+  cursor:pointer
+}
+</style>
+</head>
+
+<body>
+
+<!-- music -->
+<audio id="bgm" preload="auto">
+  <source src="Mia%20%26%20Sebastians%20Theme.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<section class="active">
+  <div class="heart">❤️</div>
+  <h1>Happy Valentine’s Day</h1>
+  <p>Vishnupriya, this little website is only for you.</p>
+  <button class="btn" onclick="go('s2')">Begin ❤️</button>
+</section>
+
+<section id="s2">
+<h2>A Love Letter</h2>
+<p>
+hellooo madaam jii happy valentine's dayyyy🎈💕...<br><br>
+nammal oda first valentine's dayyy pona varushamm...<br><br>
+ena irundhalum i love youuu only youuu 💕💕
+</p>
+<button class="btn" onclick="go('s3')">Next</button>
+</section>
+
+<section id="s3">
+<h2>Almost There 🙂</h2>
+<p>One small question before the end.</p>
+<button class="btn" onclick="go('s4')">Okay</button>
+</section>
+
+<section id="s4">
+<h2>One honest question 😏</h2>
+<p>No pressure. Just curiosity.</p>
+<div style="margin-top:30px;position:relative;">
+  <button class="btn" onclick="yes()">Yes</button>
+  <button class="btn" id="noBtn" onclick="no()">No</button>
+  <div id="hint" style="margin-top:15px;opacity:.7;display:none;">
+    seri seri… try pannadha 😌
+  </div>
+</div>
+</section>
+
+<!-- FINAL PHOTO -->
+<section id="photo" class="active" style="padding:0">
+<div class="photo-wrap">
+  <img src="IMG-20251227-WA0012.jpg" class="final-photo">
+  <div class="photo-overlay">
+    <div>
+      <p class="photo-text">Some moments don’t need words.<br>They just need us.</p>
+      <div class="photo-name">— Vishnupriya</div>
+      <div class="pass" onclick="redeem()">🎟 Unlimited Hug & Kiss Pass</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<script>
+/* reveal */
+const secs=document.querySelectorAll("section");
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>x.isIntersecting&&x.target.classList.add("active"))
+},{threshold:.3});
+secs.forEach(s=>obs.observe(s));
+
+function go(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"})
+}
+
+/* music */
+const music=document.getElementById("bgm");
+let started=false;
+function toggleMusic(){
+  if(!started){
+    music.volume=.4;
+    music.play().then(()=>started=true).catch(()=>{})
+  }else music.paused?music.play():music.pause()
+}
+document.addEventListener("click",()=>{
+  if(!started){
+    music.volume=.4;
+    music.play().then(()=>started=true).catch(()=>{})
+  }
+},{once:true});
+
+/* dots */
+setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="float";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=8+Math.random()*6+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),15000)
+},800);
+
+/* maja */
+function no(){
+  const b=document.getElementById("noBtn");
+  const h=document.getElementById("hint");
+  b.style.position="absolute";
+  b.style.left=Math.random()*70+"%";
+  b.style.top=Math.random()*60+"%";
+  h.style.display="block"
+}
+function yes(){go("photo")}
+
+function redeem(){
+  const p=document.createElement("div");
+  p.className="popup";
+  p.innerHTML=`<div class="popup-box">
+    <h3>Redeemed 😌</h3>
+    <p>This pass can be used anytime,<br>anywhere — no expiry 💞</p>
+    <button onclick="this.closest('.popup').remove()">Okay</button>
+  </div>`;
+  document.body.appendChild(p)
+}
+</script>
+
+</body>
+</html>
