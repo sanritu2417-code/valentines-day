@@ -73,6 +73,10 @@ p{font-size:1.2rem;max-width:750px;line-height:1.7}
   z-index:10
 }
 
+/* countdown */
+.countdown{display:flex;gap:20px;margin-top:20px;font-size:1.2rem}
+.box{background:rgba(255,255,255,.2);padding:12px 18px;border-radius:14px}
+
 /* final photo */
 .photo-wrap{position:relative;width:100%;height:100vh;overflow:hidden}
 .final-photo{
@@ -103,20 +107,22 @@ p{font-size:1.2rem;max-width:750px;line-height:1.7}
   font-size:.9rem;opacity:.7
 }
 
-/* hug pass */
-.pass{
-  margin-top:20px;
-  display:inline-block;
-  padding:8px 16px;
-  border-radius:20px;
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(6px);
-  font-size:.95rem;
-  opacity:0;
-  animation:fade 3s ease forwards;
-  animation-delay:4s;
-  cursor:pointer
+/* PASS CARD – cute */
+.pass-card{
+  margin-top:30px;
+  padding:30px 26px;
+  border-radius:26px;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(10px);
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+  cursor:pointer;
+  transition:.3s;
 }
+.pass-card:hover{transform:scale(1.05)}
+.pass-heart{font-size:2.6rem;margin-bottom:10px}
+.pass-card h3{margin-bottom:8px}
+.pass-card p{font-size:.95rem;opacity:.85}
+.pass-card span{display:block;margin-top:12px;font-size:.85rem;opacity:.7}
 
 /* popup */
 .popup{
@@ -145,25 +151,30 @@ p{font-size:1.2rem;max-width:750px;line-height:1.7}
 
 <body>
 
-<!-- music -->
+<!-- MUSIC -->
 <audio id="bgm" preload="auto">
   <source src="Mia%20%26%20Sebastians%20Theme.mp3" type="audio/mpeg">
 </audio>
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 
+<!-- SCREEN 1 -->
 <section class="active">
   <div class="heart">❤️</div>
   <h1>Happy Valentine’s Day</h1>
-  <p>Vishnupriya, this little website is only for you.</p>
+  <p>Vishnupriya, this little website is made only for you.</p>
+  <div class="countdown" id="countdown"></div>
   <button class="btn" onclick="go('s2')">Begin ❤️</button>
 </section>
 
+<!-- LETTER (FULL – untouched) -->
 <section id="s2">
 <h2>A Love Letter</h2>
 <p>
 hellooo madaam jii happy valentine's dayyyy🎈💕...<br><br>
-nammal oda first valentine's dayyy pona varushamm...<br><br>
-ena irundhalum i love youuu only youuu 💕💕
+nammal oda first valentine's dayyy pona varushamm inneram namma commit kuda illa ana valentine's day aniki nee leave pota nenaikire clg aprok oru snap amicha nayabgam iruku green chudihar la nenaikirw with this symbol💌 i think sooo cutee ah alagaa irundha apo kuda enku thetla namma commit aiduvom nu paren woww ,💕👉👈💌<br><br>
+unkuda irundha ellam nalum jolly ah irunchu apdi lam kadha vida mate. sila neram iva yen ipadi panra nu semma kovam varum verupu varum byngrama trigger panuve kandadha pesuve samndham eh illama thapu therinchum solluva onah adhelam byngrmama hurt agum analum un kudaa irundha oru maari nala irukum jolly ah sirichite nu oru maari en comfort neee namaloda happy moments lam vandhu indha sad moments ah oram thalirumm....🌚<br><br>
+inimey vara pora ellam valentine's day uhm un kudavey kondadanum 💕🎈 mrs.priya....<br><br>
+ena irundhalum ena nadanthalum nee enna ena panalum i love youuu only youuu 💕💕
 </p>
 <button class="btn" onclick="go('s3')">Next</button>
 </section>
@@ -175,18 +186,15 @@ ena irundhalum i love youuu only youuu 💕💕
 </section>
 
 <section id="s4">
-<h2>One honest question 😏</h2>
-<p>No pressure. Just curiosity.</p>
-<div style="margin-top:30px;position:relative;">
-  <button class="btn" onclick="yes()">Yes</button>
-  <button class="btn" id="noBtn" onclick="no()">No</button>
-  <div id="hint" style="margin-top:15px;opacity:.7;display:none;">
-    seri seri… try pannadha 😌
-  </div>
+<h2>One Important Question 💖</h2>
+<p>Will you be my Valentine?</p>
+<div style="margin-top:25px;position:relative">
+  <button class="btn" onclick="go('photo')">Yes ❤️</button>
+  <button class="btn" id="noBtn" onclick="noAnswer()">No 🙈</button>
 </div>
 </section>
 
-<!-- FINAL PHOTO -->
+<!-- PHOTO ONLY -->
 <section id="photo" class="active" style="padding:0">
 <div class="photo-wrap">
   <img src="IMG-20251227-WA0012.jpg" class="final-photo">
@@ -194,9 +202,21 @@ ena irundhalum i love youuu only youuu 💕💕
     <div>
       <p class="photo-text">Some moments don’t need words.<br>They just need us.</p>
       <div class="photo-name">— Vishnupriya</div>
-      <div class="pass" onclick="redeem()">🎟 Unlimited Hug & Kiss Pass</div>
     </div>
   </div>
+</div>
+</section>
+
+<!-- PASS ONLY -->
+<section id="pass" class="active">
+<h2>For You 🤍</h2>
+<p style="opacity:.85">Because some privileges don’t need limits.</p>
+
+<div class="pass-card" onclick="redeem()">
+  <div class="pass-heart">🤍</div>
+  <h3>Unlimited Hug & Kiss Pass</h3>
+  <p>Valid anytime • Anywhere</p>
+  <span>Tap to redeem</span>
 </div>
 </section>
 
@@ -228,27 +248,15 @@ document.addEventListener("click",()=>{
   }
 },{once:true});
 
-/* dots */
-setInterval(()=>{
-  const f=document.createElement("div");
-  f.className="float";
-  f.style.left=Math.random()*100+"vw";
-  f.style.animationDuration=8+Math.random()*6+"s";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),15000)
-},800);
-
-/* maja */
-function no(){
+/* no button fun */
+function noAnswer(){
   const b=document.getElementById("noBtn");
-  const h=document.getElementById("hint");
   b.style.position="absolute";
   b.style.left=Math.random()*70+"%";
   b.style.top=Math.random()*60+"%";
-  h.style.display="block"
 }
-function yes(){go("photo")}
 
+/* popup */
 function redeem(){
   const p=document.createElement("div");
   p.className="popup";
@@ -259,6 +267,29 @@ function redeem(){
   </div>`;
   document.body.appendChild(p)
 }
+
+/* countdown */
+const target=new Date(new Date().getFullYear(),1,14).getTime();
+const cd=document.getElementById("countdown");
+setInterval(()=>{
+  const now=new Date().getTime();
+  const d=target-now;
+  cd.innerHTML=
+  `<div class="box">${Math.floor(d/86400000)} Days</div>
+   <div class="box">${Math.floor(d%86400000/3600000)} Hrs</div>
+   <div class="box">${Math.floor(d%3600000/60000)} Min</div>
+   <div class="box">${Math.floor(d%60000/1000)} Sec</div>`;
+},1000);
+
+/* dots */
+setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="float";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=8+Math.random()*6+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),15000)
+},800);
 </script>
 
 </body>
