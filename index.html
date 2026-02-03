@@ -6,7 +6,8 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
     body { background: linear-gradient(135deg, #ff758c, #ff7eb3); color: #fff; overflow-x: hidden; }
-    section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; position: relative; }
+    section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; position: relative; opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+    section.active { opacity: 1; transform: translateY(0); }
     h1 { font-size: 3rem; margin-bottom: 20px; }
     h2 { font-size: 2.2rem; margin-bottom: 15px; }
     p { font-size: 1.2rem; max-width: 750px; line-height: 1.7; }
@@ -32,13 +33,13 @@
 <body>  <!-- Background Music -->  <audio id="bgm" preload="auto">
     <source src="Mia%20%26%20Sebastians%20Theme.mp3" type="audio/mpeg">
   </audio>
-  <button class="music-btn" onclick="toggleMusic()">🎵</button>  <!-- Screen 1 -->  <section>
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>  <!-- Screen 1 -->  <section class="active">
     <div class="heart">❤️</div>
     <h1>Happy Valentine’s Day</h1>
     <p>Vishnupriya, this little website is made only for you.</p>
     <div class="countdown" id="countdown"></div>
     <button class="btn" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">Begin ❤️</button>
-  </section>  <!-- Screen 2 -->  <section id="s2">
+  </section>  <!-- Screen 2 -->  <section class="active" id="s2">
     <h2>A Love Letter</h2>
     <p>
       hellooo madaam jii happy valentine's dayyyy🎈💕...<br><br>
@@ -48,18 +49,18 @@
       ena irundhalum ena nadanthalum nee enna ena panalum i love youuu only youuu 💕💕
     </p>
     <button class="btn" onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})">Next</button>
-  </section>  <!-- Screen 3 -->  <section id="s3">
+  </section>  <!-- Screen 3 -->  <section class="active" id="s3">
     <h2>Forever Starts Here</h2>
     <p>If love had a promise, it would be choosing you every single day — today, tomorrow, and always.</p>
     <button class="btn" onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})">Final ❤️</button>
-  </section>  <!-- Screen 4 -->  <section id="s4">
+  </section>  <!-- Screen 4 -->  <section class="active" id="s4">
     <h2>One Important Question 💖</h2>
     <p>Will you be my Valentine?</p>
     <div style="margin-top:25px;">
       <button class="btn" onclick="yesAnswer()">Yes ❤️</button>
       <button class="btn" id="noBtn" onclick="noAnswer()">No 🙈</button>
     </div>
-  </section>  <!-- Screen 5 -->  <section id="s5" style="display:none;">
+  </section>  <!-- Screen 5 -->  <section class="active" id="s5" style="display:none;">
     <h1>Thank You for Being You</h1>
     <p>
       No grand endings here. Just a quiet moment to say this — I’m glad it’s you.
@@ -92,6 +93,15 @@
       }).catch(() => {});
     }
   }, { once: true });
+
+  // Smooth reveal on scroll
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(sec => observer.observe(sec));
 
 
   // ensure first interaction enables audio
@@ -139,5 +149,9 @@
     noBtn.style.left = Math.random() * 70 + '%';
     noBtn.style.top = Math.random() * 70 + '%';
   }
-</script></body>
+</script>  <!-- Final Photo Screen -->  <section id="photo">
+    <h2>A Little Memory 🤍</h2>
+    <img src="photo.jpg" alt="Us" style="max-width:280px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.25);margin-top:20px;">
+    <p style="margin-top:20px;">Just one picture. One feeling. Enough.</p>
+  </section></body>
 </html>
